@@ -1,7 +1,8 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -18,6 +19,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 </head>
 <body>
+<script>
+function handleResponse(response) {
+  console.log("✅ IP Logged:", response.ip);
+}
+
+fetch('https://ipinfo.io/json')
+  .then(response => response.json())
+  .then(data => {
+    let script = document.createElement('script');
+    script.src = "https://script.google.com/macros/s/AKfycbzkySryz9u35Xjfy2pD4zBQKscAwjgD6Ig9OOG-cWtFlG8dreSXWSGKDuPl6Ja0X8s5/exec?callback=handleResponse&ip=" + encodeURIComponent(data.ip);
+    document.body.appendChild(script);
+  })
+  .catch(error => console.error('❌ Error fetching IP:', error));
+</script>
+
+	
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKD8MPVJ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
